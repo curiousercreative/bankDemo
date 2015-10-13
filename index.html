@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Banking app demo</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+    <!-- libraries... -->
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Bootstrap CSS & JS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- React -->
+        <script src="https://fb.me/react-0.14.0.min.js"></script>
+        <script src="https://fb.me/react-dom-0.14.0.min.js"></script>
+        <!-- React Bootstrap -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.25.1/react-bootstrap.min.js"></script>
+        <!-- React Redux -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/1.0.1/redux.min.js"></script>
+    <!-- app -->
+        <link rel="stylesheet" href="style.css" />
+        <script type="text/javascript" href="js/app.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <nav>
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="/#/accounts">Account Overview</a></li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                          Accounts <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="/#/accounts/checking">Checking</a></li>
+                            <li role="presentation"><a href="/#/accounts/savings">Savings</a></li>        
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div id="content">
+                <div id="accounts" class="view" data-href="accounts">
+                    
+                </div> <!-- end #accounts.view -->
+                <div id="checking" class="view" data-href="accounts/checking">
+                    
+                </div> <!-- end #checking.view -->
+                <div id="savings" class="view" data-href="accounts/savings">
+                    
+                </div> <!-- end #savings.view -->
+            </div> <!-- end #content -->
+        </div> <!-- end .container -->
+        <!--
+        Views
+            Account overview
+                Savings and Checking accounts with account balances
+                total account balances
+            Savings/Checking account
+                Account balance
+                Transaction ledger (date, amount, description)
+                Deposit (amount, description)
+                Withdrawal (amount, description)
+                
+            Toggle between checking and savings account view
+        -->
+    </body>
+</html>
