@@ -6,12 +6,11 @@ var App = React.createClass({
         return (
             React.createElement('div', null,
                 [
-                    React.createElement(AccountOverview, {id: "overview", accounts: this.state.accounts, activePageId: this.state.activePageId}),
+                    React.createElement(AccountOverview, {id: "accounts", accounts: this.state.accounts, activePageId: this.state.activePageId}),
                     this.state.accounts.map(function (account, key) {
                         return (
                             React.createElement(Account, {
                                 key: key,
-                                activePage: this.state.activePageId,
                                 name: account.name,
                                 balance: account.balanace,
                                 transactions: account.transactions}
@@ -26,11 +25,11 @@ var App = React.createClass({
 
 var AccountOverview = React.createClass({
     isActivePage: function () {
-        return this.props.activePageId == this.props.id ? ' active' : '';
+        return store.getState().activePageId == this.props.id ? ' active' : '';
     },
     render: function () {
         return (
-            React.createElement('div', {className: 'page'+isActivePage(), id: this.props.id},
+            React.createElement('div', {className: 'page'+this.isActivePage(), id: this.props.id},
                 React.createElement('table', null,
                     [
                         React.createElement('thead', null,
@@ -60,11 +59,11 @@ var AccountOverview = React.createClass({
 
 var Account = React.createClass({
     isActivePage: function () {
-        return this.props.activePage == this.props.id ? ' active' : '';
+        return store.getState().activePageId == this.props.id ? ' active' : '';
     },
     render: function () {
         return (
-            React.createElement('div', {className: 'page'+isActivePage(), id: this.props.name},
+            React.createElement('div', {className: 'page'+this.isActivePage(), id: this.props.name},
                 [
                     React.createElement('h1', null, this.props.name),
                     React.createElement('div', null, this.props.balance),

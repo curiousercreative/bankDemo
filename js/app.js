@@ -15,13 +15,13 @@
         var id = getActivePageId();
         
     // update app state with it
-        store.dispatch(changeHash());
+        store.dispatch(changeHash(id));
     }
     
 // Render the UI
     window.onload = function () {
     // redux store
-        var store = Redux.createStore(bankApp, {activePageId: defaultActivePageId, accounts: accounts});
+        window.store = Redux.createStore(bankApp, {activePageId: defaultActivePageId, accounts: accounts});
     
     // Render React
         ReactDOM.render(
