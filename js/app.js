@@ -1,4 +1,5 @@
-// Parse a page id from the hash value
+// Helper functions
+    // Parse a page id from the hash value
     function getActivePageId () {
         var h = window.location.hash;
         for (var i = 0; i < accounts.length; i++) {
@@ -9,19 +10,9 @@
         return defaultActivePageId;
     }
     
-// Navigation
-    function hashChangeHandler () {
-    // read the hash value and parse a page id of it
-        var id = getActivePageId();
-        
-    // update app state with it
-        store.dispatch(changeHash(id));
-    }
-    
-    
-// helper function
+    // format a number/string as currency
     function formatCurrency (value) {
-    // add $, and commas
+    // add $, commas and decimal
     // solution borrowed from Tom: http://stackoverflow.com/questions/14467433/currency-formatting-in-javascript#answer-14467460
         var string = '$' + parseFloat(value).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
         
@@ -30,45 +21,26 @@
         else return string
     }
     
+    // format date for display
     function formatDate (date) {
     // convert date object to date MM/DD/YYYY format
         var month = date.getMonth()+1;
         if (month < 10) month = "0"+month;  
         return month+"/"+date.getDate()+"/"+date.getFullYear();
     }
-    
+    // format date for machine
     function formatDateISO (date) {
     // convert date object to ISO string for datetime property
         return date.toISOString();
     }
     
-// Render the UI
-    window.onload = function () {   
-    // init redux state store
-        //const logger = reduxLogger.createLogger();
-        //const createStoreWithMiddleware = reduxLogger.applyMiddleware(thunk, promise, logger)(Redux.createStore);
-        //window.store = createStoreWithMiddleware(reducer, {activePageId: getActivePageId(), accounts: accounts});
-        window.store = Redux.createStore(bankApp, {activePageId: getActivePageId(), accounts: accounts});
-    
-    // Render React
-        // content
-        ReactDOM.render(
-            React.createElement(ReactRedux.Provider, {store: store},
-                React.createElement(appContainer, store.getState())
-            ),
-            document.getElementById('content')
-        );
+// Navigation handler
+    function hashChangeHandler () {
+    // read the hash value and parse a page id of it
+        var id = getActivePageId();
         
-        // nav
-        ReactDOM.render(
-            React.createElement(ReactRedux.Provider, {store: store},
-                React.createElement(navContainer, store.getState())
-            ),
-            document.getElementById('navContainer')
-        );
-        
-    // Listen for hashChanges
-        $(window).on('hashchange', hashChangeHandler);
+    // update app state with it
+        store.dispatch(changeHash(id));
     }
     
 // Redux actions
@@ -127,10 +99,13 @@
         }
     }
     
+// redux mapStateToProps
+    // for main component
     function selectApp(state) {
         return state;
     }
     
+    // for nav component
     function selectNav(state) {
         var newState = {
             activePageId: state.activePageId
@@ -138,5 +113,35 @@
         return state;
     }
     
+// Connect our React components to the Redux store
     var appContainer = ReactRedux.connect(selectApp)(App);
     var navContainer = ReactRedux.connect(selectNav)(Nav);
+    
+// Render the UI when ready
+    $(document).on('ready', function () {   
+    // init redux state store
+        //const logger = reduxLogger.createLogger();
+        //const createStoreWithMiddleware = reduxLogger.applyMiddleware(thunk, promise, logger)(Redux.createStore);
+        //window.store = createStoreWithMiddleware(reducer, {activePageId: getActivePageId(), accounts: accounts});
+        window.store = Redux.createStore(bankApp, {activePageId: getActivePageId(), accounts: accounts});
+    
+    // Render React
+        // content
+        ReactDOM.render(
+            React.createElement(ReactRedux.Provider, {store: store},
+                React.createElement(appContainer, store.getState())
+            ),
+            document.getElementById('content')
+        );
+        
+        // nav
+        ReactDOM.render(
+            React.createElement(ReactRedux.Provider, {store: store},
+                React.createElement(navContainer, store.getState())
+            ),
+            document.getElementById('navContainer')
+        );
+        
+    // Listen for hashChanges
+        $(window).on('hashchange', hashChangeHandler);
+    });
