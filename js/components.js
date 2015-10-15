@@ -6,11 +6,12 @@ var App = React.createClass({
         return (
             React.createElement('div', null,
                 [
-                    React.createElement(AccountOverview, {id: "accounts", accounts: this.state.accounts, activePageId: this.state.activePageId}),
-                    this.state.accounts.map(function (account, key) {
+                    React.createElement(AccountOverview, {id: "accounts", accounts: this.props.accounts, activePageId: this.props.activePageId}),
+                    this.props.accounts.map(function (account, key) {
                         return (
                             React.createElement(Account, {
                                 key: key,
+                                id: account.name,
                                 name: account.name,
                                 balance: account.balance,
                                 transactions: account.transactions
@@ -59,6 +60,7 @@ var AccountOverview = React.createClass({
 
 var Account = React.createClass({
     isActivePage: function () {
+        console.log(this.props.id);
         return store.getState().activePageId == this.props.id ? ' active' : '';
     },
     render: function () {

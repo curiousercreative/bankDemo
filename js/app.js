@@ -15,7 +15,7 @@
         var id = getActivePageId();
         
     // update app state with it
-        dispatch(changeHash(id));
+        store.dispatch(changeHash(id));
     }
     
 // Render the UI
@@ -26,7 +26,7 @@
     // Render React
         ReactDOM.render(
             React.createElement(ReactRedux.Provider, {store: store},
-                React.createElement(App)
+                React.createElement(appContainer, store.getState())
             ),
             document.getElementById('content')
         );
@@ -91,4 +91,4 @@
         return state;
     }
     
-    ReactRedux.connect(select)(App);
+    var appContainer = ReactRedux.connect(select)(App);
