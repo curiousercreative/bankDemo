@@ -5,3 +5,25 @@
 .page.active {
     display: block;
 }
+
+.container {
+    width: 700px;
+}
+
+#accounts table {
+    width: 70%;
+    margin: 50px 0;
+}
+
+#accounts table th:last-child,
+#accounts table td:last-child {
+    width: 15%;
+}
+
+.accountName {
+    text-transform: capitalize;
+}
+
+.accountBalance {
+    text-align: right;
+}

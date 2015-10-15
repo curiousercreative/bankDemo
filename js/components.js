@@ -64,22 +64,24 @@ var AccountOverview = React.createClass({
     render: function () {
         return (
             React.createElement('div', {className: 'page'+this.isActivePage(), id: this.props.id},
-                React.createElement('table', null,
+                React.createElement(ReactBootstrap.Table, {bordered: true, condensed: true},
                     [
                         React.createElement('thead', null,
-                            [
-                                React.createElement('th', null, 'Account'),
-                                React.createElement('th', null, 'Balance')
-                            ]
+                            React.createElement('tr', null,
+                                [
+                                    React.createElement('th', null, 'Account'),
+                                    React.createElement('th', null, 'Balance')
+                                ]
+                            )
                         ),
                         React.createElement('tbody', null,
                             this.props.accounts.map(function (account, i) {
                                 return React.createElement('tr', {key: i},
                                     [
-                                        React.createElement('td', null,
+                                        React.createElement('td', {className: 'accountName'},
                                             React.createElement('a', {href: "#/"+account.name}, account.name)
                                         ),
-                                        React.createElement('td', null, account.balance)
+                                        React.createElement('td', {className: 'accountBalance'}, formatBalance(account.balance))
                                     ]
                                 );
                             })
@@ -106,7 +108,7 @@ var Account = React.createClass({
         return (
             React.createElement('div', {className: 'page'+this.isActivePage(), id: this.props.name},
                 [
-                    React.createElement('h1', null, this.props.name),
+                    React.createElement('h1', {className: 'accountName'}, this.props.name),
                     React.createElement('div', null, this.props.balance),
                     React.createElement(TranasctionForm, {onTransactionSubmit: this.handleTransactionSubmit}),
                     React.createElement(TransactionLedger, {balance: this.props.balance, transactions: this.props.transactions})

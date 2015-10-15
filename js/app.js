@@ -18,6 +18,14 @@
         store.dispatch(changeHash(id));
     }
     
+    
+// helper function
+    function formatBalance (balance) {
+    // add $, and commas
+    // solution borrowed from Tom: http://stackoverflow.com/questions/14467433/currency-formatting-in-javascript#answer-14467460
+        return '$' + parseFloat(balance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");  
+    }
+    
 // Render the UI
     window.onload = function () {   
     // init redux state store
