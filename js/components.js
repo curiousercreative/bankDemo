@@ -1,7 +1,4 @@
 var App = React.createClass({
-    getInitialState: function () {
-        return {accounts: accounts, activePageId: defaultActivePageId};
-    },
     render: function () {
         return (
             React.createElement('div', null,
@@ -23,6 +20,42 @@ var App = React.createClass({
         );
     }
 });
+
+var Nav = React.createClass({
+    isActive: function (id) {
+        if (this.props.activePageId == id) return "active"
+        // also match for the tab/dropdown item
+        else if (
+            this.props.activePageId !== defaultActivePageId
+            && !id
+        ) {
+            return "active";
+        }
+        else return "";
+    },
+    render: function () {
+        return (
+            React.createElement(ReactBootstrap.Nav, {bsStyle:"tabs", id: "primaryNav"},
+                [
+                    React.createElement(ReactBootstrap.NavItem, {className: this.isActive("accounts"), href: "#/accounts"}, "Accounts overview"),
+                    React.createElement(ReactBootstrap.NavDropdown, {className: this.isActive(), title: "Accounts", id: "nav-dropdown"},
+                        accounts.map(function (account, key) {
+                            return (
+                                React.createElement(ReactBootstrap.MenuItem, {
+                                    key: key,
+                                    className: this.isActive(account.name),
+                                    href: "#/"+account.name
+                                    },
+                                    account.name
+                                )
+                            )  
+                        }, this)
+                    )
+                ]
+            )
+        )
+    }
+})
 
 var AccountOverview = React.createClass({
     isActivePage: function () {

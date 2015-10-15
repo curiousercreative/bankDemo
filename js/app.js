@@ -21,14 +21,26 @@
 // Render the UI
     window.onload = function () {   
     // init redux state store
+        //const logger = reduxLogger.createLogger();
+        //const createStoreWithMiddleware = reduxLogger.applyMiddleware(thunk, promise, logger)(Redux.createStore);
+        //window.store = createStoreWithMiddleware(reducer, {activePageId: getActivePageId(), accounts: accounts});
         window.store = Redux.createStore(bankApp, {activePageId: getActivePageId(), accounts: accounts});
     
     // Render React
+        // content
         ReactDOM.render(
             React.createElement(ReactRedux.Provider, {store: store},
                 React.createElement(appContainer, store.getState())
             ),
             document.getElementById('content')
+        );
+        
+        // nav
+        ReactDOM.render(
+            React.createElement(ReactRedux.Provider, {store: store},
+                React.createElement(navContainer, store.getState())
+            ),
+            document.getElementById('navContainer')
         );
         
     // Listen for hashChanges
@@ -84,15 +96,23 @@
             
             // update account balance
                 newState.accounts[accountIndex].balance = action.payload.balance;
-                console.log(newState);
+
                 return newState;
             default:
                 return state;
         }
     }
     
-    function select(state) {
+    function selectApp(state) {
         return state;
     }
     
-    var appContainer = ReactRedux.connect(select)(App);
+    function selectNav(state) {
+        var newState = {
+            activePageId: state.activePageId
+        }
+        return state;
+    }
+    
+    var appContainer = ReactRedux.connect(selectApp)(App);
+    var navContainer = ReactRedux.connect(selectNav)(Nav);

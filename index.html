@@ -15,8 +15,13 @@
         <!-- React -->
         <script src="https://fb.me/react-0.14.0.js"></script>
         <script src="https://fb.me/react-dom-0.14.0.min.js"></script>
+        <!-- React Bootstrap -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.25.1/react-bootstrap.js"></script>
         <!-- Redux -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/1.0.1/redux.min.js"></script>
+        <!--
+        <script src="https://raw.githubusercontent.com/fcomb/redux-logger/master/dist/index.min.js"></script>
+        -->
         <!-- React Redux -->
         <script src="js/lib/react-redux.js"></script>
     <!-- app -->
@@ -92,21 +97,10 @@
         </script>
     </head>
     <body>
-        <div class="container">
-            <nav>
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#/accounts">Account Overview</a></li>
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                          Accounts <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li role="presentation"><a href="#/checking">Checking</a></li>
-                            <li role="presentation"><a href="#/savings">Savings</a></li>        
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+        <div id="app" class="container">            
+            <div id="navContainer">
+                
+            </div><!-- end #navContainer -->
             
             <div id="content">
                 
