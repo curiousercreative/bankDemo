@@ -7,7 +7,7 @@
 }
 
 .container {
-    width: 700px;
+    width: 600px;
 }
 
 #accounts table {
@@ -24,6 +24,18 @@
     text-transform: capitalize;
 }
 
-.accountBalance {
+.currency {
     text-align: right;
+}
+
+.transaction.withdrawal {
+    background: #F9F9F9;
+}
+
+.accountBalance {
+    margin-top: 25px;
+}
+
+.accountBalance .currency {
+    margin-left: 1em;
 }

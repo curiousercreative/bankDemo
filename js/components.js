@@ -81,7 +81,7 @@ var AccountOverview = React.createClass({
                                         React.createElement('td', {className: 'accountName'},
                                             React.createElement('a', {href: "#/"+account.name}, account.name)
                                         ),
-                                        React.createElement('td', {className: 'accountBalance'}, formatBalance(account.balance))
+                                        React.createElement('td', {className: 'currency'}, formatCurrency(account.balance))
                                     ]
                                 );
                             })
@@ -108,8 +108,19 @@ var Account = React.createClass({
         return (
             React.createElement('div', {className: 'page'+this.isActivePage(), id: this.props.name},
                 [
-                    React.createElement('h1', {className: 'accountName'}, this.props.name),
-                    React.createElement('div', null, this.props.balance),
+                    React.createElement('div', {className: 'row'},
+                        [
+                            React.createElement('h1', {className: 'col-md-6 accountName'}, this.props.name),
+                            React.createElement('div', {className: 'col-md-6 text-center'},
+                                React.createElement('div', {className: "well well-sm accountBalance"},
+                                    [
+                                        React.createElement('span', {className: 'h5'}, "Account Balance:"),
+                                        React.createElement('strong', {className: 'currency'}, formatCurrency(this.props.balance))
+                                    ]
+                                )
+                            )
+                        ]
+                    ),
                     React.createElement(TranasctionForm, {onTransactionSubmit: this.handleTransactionSubmit}),
                     React.createElement(TransactionLedger, {balance: this.props.balance, transactions: this.props.transactions})
                 ]
@@ -121,15 +132,15 @@ var Account = React.createClass({
 var TransactionLedger = React.createClass({
     render: function () {
         return (
-            React.createElement('table', {id: 'ledger'},
+            React.createElement(ReactBootstrap.Table, {id: 'ledger', collapsed: true, bordered: true},
                 [
                     React.createElement('thead', null,
                         React.createElement('tr', null,
                             [
                                 React.createElement('th', null, 'Date'),
                                 React.createElement('th', null, 'Description'),
-                                React.createElement('th', null, 'Amount'),
-                                React.createElement('th', null, 'Balance')
+                                React.createElement('th', {className: "currency"}, 'Amount'),
+                                React.createElement('th', {className: "currency"}, 'Balance')
                             ]
                         )
                     ),
@@ -153,14 +164,19 @@ var TransactionLedger = React.createClass({
 });
 
 var Transaction = React.createClass({
+    getType: function (amount) {
+        return parseFloat(amount) > 0 ? 'deposit' : ' withdrawal';
+    },
     render: function () {
         return (
-            React.createElement('tr', {className: 'transaction'},
+            React.createElement('tr', {className: 'transaction '+this.getType(this.props.amount)},
                 [
-                    React.createElement('td', null, this.props.date),
+                    React.createElement('td', null,
+                        React.createElement('time', {dateTime: formatDateISO(new Date(this.props.date))}, formatDate(new Date(this.props.date)))
+                    ),
                     React.createElement('td', null, this.props.description),
-                    React.createElement('td', null, this.props.amount),
-                    React.createElement('td', null, this.props.balance)
+                    React.createElement('td', {className: "currency"}, formatCurrency(this.props.amount)),
+                    React.createElement('td', {className: "currency"}, formatCurrency(this.props.balance))
                 ]
             )   
         )

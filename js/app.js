@@ -20,10 +20,26 @@
     
     
 // helper function
-    function formatBalance (balance) {
+    function formatCurrency (value) {
     // add $, and commas
     // solution borrowed from Tom: http://stackoverflow.com/questions/14467433/currency-formatting-in-javascript#answer-14467460
-        return '$' + parseFloat(balance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");  
+        var string = '$' + parseFloat(value).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        
+    // get the negative sign before the dollar sign
+        if (string.substring(1, 2) == '-') return "-" + string.replace('-', '');
+        else return string
+    }
+    
+    function formatDate (date) {
+    // convert date object to date MM/DD/YYYY format
+        var month = date.getMonth()+1;
+        if (month < 10) month = "0"+month;  
+        return month+"/"+date.getDate()+"/"+date.getFullYear();
+    }
+    
+    function formatDateISO (date) {
+    // convert date object to ISO string for datetime property
+        return date.toISOString();
     }
     
 // Render the UI
