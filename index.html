@@ -23,19 +23,78 @@
         <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="js/components.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript">
+        // dummy data and defaults
+            var accounts = [
+                {
+                    name: 'checking',
+                    balance: 4223,
+                    transactions: [
+                        {
+                            date: 1444859294893,
+                            description: 'wings and beer',
+                            amount: '-18.85'
+                        },
+                        {
+                            date: 1445859294893,
+                            description: 'paycheck',
+                            amount: '2118.85'
+                        },
+                        {
+                            date: 1448859294893,
+                            description: 'movie ticket',
+                            amount: '-14'
+                        },
+                        {
+                            date: 1444859274893,
+                            description: 'karaoke',
+                            amount: '-12'
+                        }
+                    ]
+                },
+                {
+                    name: 'savings',
+                    balance: 15244,
+                    transactions: [
+                        {
+                            date: 1444859294893,
+                            description: 'wings and beer',
+                            amount: '-18.85'
+                        },
+                        {
+                            date: 1445859294893,
+                            description: 'paycheck',
+                            amount: '2118.85'
+                        },
+                        {
+                            date: 1448859294893,
+                            description: 'movie ticket',
+                            amount: '-14'
+                        },
+                        {
+                            date: 1444859274893,
+                            description: 'karaoke',
+                            amount: '-12'
+                        }
+                    ]
+                }
+            ];
+            
+            var defaultActivePageId = "accounts";
+        </script>
     </head>
     <body>
         <div class="container">
             <nav>
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="/#/accounts">Account Overview</a></li>
+                    <li role="presentation" class="active"><a href="#/accounts">Account Overview</a></li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                           Accounts <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li role="presentation"><a href="/#/accounts/checking">Checking</a></li>
-                            <li role="presentation"><a href="/#/accounts/savings">Savings</a></li>        
+                            <li role="presentation"><a href="#/checking">Checking</a></li>
+                            <li role="presentation"><a href="#/savings">Savings</a></li>        
                         </ul>
                     </li>
                 </ul>
