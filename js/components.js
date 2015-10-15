@@ -121,7 +121,9 @@ var Account = React.createClass({
                             )
                         ]
                     ),
+                    React.createElement('h2', {className: 'h3'}, 'Record new transaction'),
                     React.createElement(TranasctionForm, {onTransactionSubmit: this.handleTransactionSubmit}),
+                    React.createElement('h2', {className: 'h3'}, 'Transaction history'),
                     React.createElement(TransactionLedger, {balance: this.props.balance, transactions: this.props.transactions})
                 ]
             )
@@ -184,11 +186,6 @@ var Transaction = React.createClass({
 });
 
 var TranasctionForm = React.createClass({
-    timestampToDate: function (timestamp) {
-        var date = new Date(timestamp);
-        
-        return date.toDateString
-    },
     submitHandler: function (e) {
         e.preventDefault();
         
@@ -209,18 +206,15 @@ var TranasctionForm = React.createClass({
         return (
             React.createElement('form', {onSubmit: this.submitHandler},
                 [
-                    React.createElement('label', null, 'Transaction type'),
-                    React.createElement('select', {ref: 'type'},
+                    React.createElement(ReactBootstrap.Input, {groupClassName: "col-md-3", type: 'select', label: 'Transaction type', placeholder: 'select account', ref: 'type'},
                         [
                             React.createElement('option', {value: ''}, 'Deposit'),
-                            React.createElement('option', {value: '-'}, 'Withdrawal')
+                            React.createElement('option', {value: '-'}, 'Withdraw')
                         ]
                     ),
-                    React.createElement('label', null, 'Transaction amount'),
-                    React.createElement('input', {placeholder: '10.00', type: 'number', ref: 'amount'}),
-                    React.createElement('label', null, 'Transaction description'),
-                    React.createElement('input', {placeholder: 'Enter description here', ref: 'description'}, this.props.description),
-                    React.createElement('input', {type: 'submit', value: 'submit'})
+                    React.createElement(ReactBootstrap.Input, {groupClassName: "col-md-4", placeholder: '10.00', type: 'number', ref: 'amount', label: 'Transaction amount', addonBefore:"$"}),
+                    React.createElement(ReactBootstrap.Input, {groupClassName: "col-md-5", placeholder: 'enter description here', type: 'text', ref: 'description', label: 'Transaction description'}),
+                    React.createElement(ReactBootstrap.ButtonInput, {groupClassName: "col-md-12 text-right", type: 'submit', value: 'submit', className: "btn btn-primary"})
                 ]
             )
         )
