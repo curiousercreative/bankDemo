@@ -60,8 +60,14 @@ var AccountOverview = React.createClass({
 
 var Account = React.createClass({
     isActivePage: function () {
-        console.log(this.props.id);
         return store.getState().activePageId == this.props.id ? ' active' : '';
+    },
+    handleTransactionSubmit: function (transaction) {
+    // calculate balance
+        transaction.balance = parseFloat(this.props.balance) + parseFloat(transaction.amount);
+    
+    // update state
+        store.dispatch(addTransaction(transaction, transaction.balance, this.props.name));
     },
     render: function () {
         return (
@@ -69,8 +75,8 @@ var Account = React.createClass({
                 [
                     React.createElement('h1', null, this.props.name),
                     React.createElement('div', null, this.props.balance),
-                    React.createElement(TransactionLedger, {balance: this.props.balance, transactions: this.props.transactions}),
-                    React.createElement(TranasctionForm)
+                    React.createElement(TranasctionForm, {onTransactionSubmit: this.handleTransactionSubmit}),
+                    React.createElement(TransactionLedger, {balance: this.props.balance, transactions: this.props.transactions})
                 ]
             )
         );
@@ -132,22 +138,38 @@ var TranasctionForm = React.createClass({
         
         return date.toDateString
     },
+    submitHandler: function (e) {
+        e.preventDefault();
+        
+    // prep transaction object
+        var transaction = {
+            amount: $(this.refs.type).val() + $(this.refs.amount).val(),
+            description: $(this.refs.description).val(),
+            date: Date.now()
+        }
+
+    // pass off to parent
+        this.props.onTransactionSubmit(transaction);
+        
+    // reset form
+        e.target.reset();
+    },
     render: function () {
         return (
-            React.createElement('form', null,
+            React.createElement('form', {onSubmit: this.submitHandler},
                 [
                     React.createElement('label', null, 'Transaction type'),
-                    React.createElement('select', null,
+                    React.createElement('select', {ref: 'type'},
                         [
-                            React.createElement('option', {selected: true, disabled: true}, 'Select'),
-                            React.createElement('option', {value: 'deposit'}, 'Deposit'),
-                            React.createElement('option', {value: 'withdrawal'}, 'Withdrawal')
+                            React.createElement('option', {value: ''}, 'Deposit'),
+                            React.createElement('option', {value: '-'}, 'Withdrawal')
                         ]
                     ),
                     React.createElement('label', null, 'Transaction amount'),
-                    React.createElement('input', {placeholder: '10.00', type: 'number'}),
+                    React.createElement('input', {placeholder: '10.00', type: 'number', ref: 'amount'}),
                     React.createElement('label', null, 'Transaction description'),
-                    React.createElement('input', {placeholder: 'Enter description here'}, this.props.description)
+                    React.createElement('input', {placeholder: 'Enter description here', ref: 'description'}, this.props.description),
+                    React.createElement('input', {type: 'submit', value: 'submit'})
                 ]
             )
         )

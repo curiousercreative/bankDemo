@@ -19,9 +19,9 @@
     }
     
 // Render the UI
-    window.onload = function () {
-    // redux store
-        window.store = Redux.createStore(bankApp, {activePageId: defaultActivePageId, accounts: accounts});
+    window.onload = function () {   
+    // init redux state store
+        window.store = Redux.createStore(bankApp, {activePageId: getActivePageId(), accounts: accounts});
     
     // Render React
         ReactDOM.render(
@@ -80,7 +80,11 @@
                 var newState = Object.assign({}, state);
                 
             // add the new transaction
-                newState.accounts[accountIndex].transactions.push(action.payload.transaction);
+                newState.accounts[accountIndex].transactions.unshift(action.payload.transaction);
+            
+            // update account balance
+                newState.accounts[accountIndex].balance = action.payload.balance;
+                console.log(newState);
                 return newState;
             default:
                 return state;
