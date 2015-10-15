@@ -191,8 +191,8 @@ var TranasctionForm = React.createClass({
         
     // prep transaction object
         var transaction = {
-            amount: $(this.refs.type).val() + $(this.refs.amount).val(),
-            description: $(this.refs.description).val(),
+            amount: this.refs.type.getValue() + this.refs.amount.getValue(),
+            description: this.refs.description.getValue(),
             date: Date.now()
         }
 
