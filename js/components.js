@@ -12,9 +12,9 @@ var App = React.createClass({
                             React.createElement(Account, {
                                 key: key,
                                 name: account.name,
-                                balance: account.balanace,
-                                transactions: account.transactions}
-                            )
+                                balance: account.balance,
+                                transactions: account.transactions
+                            })
                         )
                     })
                 ]
@@ -43,7 +43,7 @@ var AccountOverview = React.createClass({
                                 return React.createElement('tr', {key: i},
                                     [
                                         React.createElement('td', null,
-                                            React.createElement('a', {href: "/#/"+account.name}, account.name)
+                                            React.createElement('a', {href: "#/"+account.name}, account.name)
                                         ),
                                         React.createElement('td', null, account.balance)
                                     ]
