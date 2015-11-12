@@ -119,7 +119,7 @@
                 }
                 
             // clone the state
-                var newState = Object.assign({}, state);
+                var newState = JSON.parse(JSON.stringify(state));
                 
             // add the new transaction
                 newState.accounts[accountIndex].transactions.unshift(action.payload.transaction);
